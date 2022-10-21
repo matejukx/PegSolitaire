@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Samotnik.Controllers;
 internal class BoardController
 {
     public List<Peg> Pegs { get; private set; } = new();
+    public List<CopyPeg> PreviousSetting { get; private set; } = new();
     private readonly RulesController _rulesController = new();
     private Peg _lastClickedPeg;
     private readonly MainWindow _mainWindow;
@@ -54,6 +56,16 @@ internal class BoardController
         Init();
     }
 
+    public void RestorePreviousSetting()
+    {
+        Pegs.Clear();
+        foreach(var peg in PreviousSetting)
+        {
+            var newPeg = CreatePeg(peg.X, peg.Y);
+            newPeg.IsVisible = peg.IsVisible;
+        }
+    }
+
     public void OnButtonClicked(Peg sender)
     {
         if (_lastClickedPeg != null)
@@ -70,6 +82,8 @@ internal class BoardController
     {
         sender.IsClicked = true;
         _lastClickedPeg = sender;
+        PreviousSetting.Clear();
+        PreviousSetting = Pegs.Select(peg => new CopyPeg(peg)).ToList();
     }
 
     private void OnSecondButtonClicked(Peg sender)
@@ -94,6 +108,7 @@ internal class BoardController
 
         sender.IsVisible = true;
         _lastClickedPeg = null;
+
         _rulesController.CheckWinCondition(Pegs);
     }
 

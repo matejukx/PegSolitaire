@@ -31,12 +31,11 @@ public partial class MainWindow : Window
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
-        // TODO
+        _boardController.RestorePreviousSetting();
     }
 
     private void ClearButton_Click(object sender, RoutedEventArgs e)
     {
         _boardController.Restart();
-        BackButton.IsEnabled = false;
     }
 }
