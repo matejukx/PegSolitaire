@@ -12,7 +12,7 @@ namespace Samotnik.Controllers;
 internal class BoardController
 {
     public List<Peg> Pegs { get; private set; } = new();
-    public List<CopyPeg> PreviousSetting { get; private set; } = new();
+    private List<CopyPeg> _previousSetting = new();
     private readonly RulesController _rulesController = new();
     private Peg _lastClickedPeg;
     private readonly MainWindow _mainWindow;
@@ -59,7 +59,7 @@ internal class BoardController
     public void RestorePreviousSetting()
     {
         Pegs.Clear();
-        foreach(var peg in PreviousSetting)
+        foreach(var peg in _previousSetting)
         {
             var newPeg = CreatePeg(peg.X, peg.Y);
             newPeg.IsVisible = peg.IsVisible;
@@ -82,8 +82,8 @@ internal class BoardController
     {
         sender.IsClicked = true;
         _lastClickedPeg = sender;
-        PreviousSetting.Clear();
-        PreviousSetting = Pegs.Select(peg => new CopyPeg(peg)).ToList();
+        _previousSetting.Clear();
+        _previousSetting = Pegs.Select(peg => new CopyPeg(peg)).ToList();
     }
 
     private void OnSecondButtonClicked(Peg sender)
