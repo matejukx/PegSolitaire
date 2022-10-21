@@ -16,28 +16,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Samotnik
+namespace Samotnik;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+
+    private readonly BoardController _boardController;
+    public MainWindow()
     {
+        InitializeComponent();
+        _boardController = new(this);
+        _boardController.Init();
+    }
 
-        private readonly BoardController _boardController;
-        public MainWindow()
-        {
-            InitializeComponent();
-            _boardController = new BoardController(this);
-            _boardController.Init();
-        }
+    private void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+        // TODO
+    }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO
-        }
-
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-            _boardController.Restart();
-            BackButton.IsEnabled = false;
-        }
+    private void ClearButton_Click(object sender, RoutedEventArgs e)
+    {
+        _boardController.Restart();
+        BackButton.IsEnabled = false;
     }
 }
