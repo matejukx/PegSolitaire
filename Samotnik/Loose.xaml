@@ -1,12 +1,11 @@
-﻿<Window x:Class="Samotnik.MainWindow"
+﻿<Window x:Class="Samotnik.Loose"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Samotnik"
         mc:Ignorable="d"
-        Title="MainWindow" Height="463" Width="596">
-
+        Title="Loose" Height="450" Width="800">
     <Window.Resources>
         <ControlTemplate x:Key="gameButton" TargetType="Button">
             <Grid>
@@ -20,23 +19,8 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
-
-    <Grid x:Name="MainGrid" Margin="0,0,21,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="319*"/>
-            <ColumnDefinition Width="148*"/>
-        </Grid.ColumnDefinitions>
-        <Button Template="{StaticResource gameButton}" x:Name="BackButton" Content="Back" HorizontalAlignment="Right" Margin="0,90,48,0" VerticalAlignment="Top" Height="40" Width="100" Click="BackButton_Click" Grid.ColumnSpan="2"/>
-        <Button Template="{StaticResource gameButton}" x:Name="ClearButton" Content="Clear" HorizontalAlignment="Right" Margin="0,30,48,0" VerticalAlignment="Top" Height="40" Width="100" Click="ClearButton_Click" Grid.ColumnSpan="2"/>
-
-        <StackPanel Margin="10,409,0,10" Grid.ColumnSpan="2">
-            <Rectangle
-        x:Name="TimerRectangle"
-        Width="600" 
-        Height="100"
-        Fill="Green"/>
-        </StackPanel>
+    <Grid>
+        <TextBlock x:Name="LostText" FontSize="40" Margin="320,184,320,184">You Lost!</TextBlock>
+        <Button Template="{StaticResource gameButton}" x:Name="RestartButton" Content="Restart Game" HorizontalAlignment="Center" Margin="0,297,0,0" VerticalAlignment="Top" Height="40" Width="100" Click="RestartButton_Click"/>
     </Grid>
-
-
 </Window>

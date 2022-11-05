@@ -16,10 +16,12 @@ internal class BoardController
     private readonly RulesController _rulesController = new();
     private Peg _lastClickedPeg;
     private readonly MainWindow _mainWindow;
+    private readonly AnimationController _animationController;
 
-    public BoardController(MainWindow mainWindow)
+    public BoardController(MainWindow mainWindow, AnimationController animationController)
     {
         _mainWindow = mainWindow;
+        _animationController = animationController;
     }
 
     public void Init()
@@ -53,13 +55,15 @@ internal class BoardController
     public void Restart()
     {
         Pegs.Clear();
+        _animationController.Restart();
         Init();
     }
 
     public void RestorePreviousSetting()
     {
         Pegs.Clear();
-        foreach(var peg in _previousSetting)
+        _animationController.Restart();
+        foreach (var peg in _previousSetting)
         {
             var newPeg = CreatePeg(peg.X, peg.Y);
             newPeg.IsVisible = peg.IsVisible;
@@ -95,7 +99,7 @@ internal class BoardController
             return;
         }
 
-        if (!_rulesController.CanJump(_lastClickedPeg, sender) || sender.IsVisible)
+        if (!_rulesController.CanJump(_lastClickedPeg, sender, Pegs) || sender.IsVisible)
         {
             return;
         }
@@ -109,7 +113,14 @@ internal class BoardController
         sender.IsVisible = true;
         _lastClickedPeg = null;
 
-        _rulesController.CheckWinCondition(Pegs);
+        _animationController.Restart();
+        if (_rulesController.CheckWinCondition(Pegs))
+        {
+            _mainWindow.WinGame();
+        }
+        if (_rulesController.CheckLoseCondition(Pegs)) {
+           // _mainWindow.LooseGame();
+        }
     }
 
     private Peg CreatePeg(int x, int y)

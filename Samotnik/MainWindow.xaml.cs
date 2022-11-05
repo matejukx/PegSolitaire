@@ -1,20 +1,7 @@
-﻿using Samotnik;
+﻿
 using Samotnik.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using static Samotnik.Utils.Utils;
 
 namespace Samotnik;
 
@@ -22,11 +9,36 @@ public partial class MainWindow : Window
 {
 
     private readonly BoardController _boardController;
+    private readonly AnimationController _animationController;
     public MainWindow()
     {
         InitializeComponent();
-        _boardController = new(this);
+        _animationController = new(this);
+        _boardController = new(this, _animationController);
         _boardController.Init();
+        
+       
+        _animationController.Init();
+        _animationController.animation.Completed += TimerRectangle_Completed;
+    }
+
+    private void TimerRectangle_Completed(object? sender, System.EventArgs e)
+    {
+        LooseGame();
+    }
+    
+    public void WinGame()
+    {
+        Win winWindow = new();
+        this.Close();
+        winWindow.ShowDialog();
+    }
+
+    public void LooseGame()
+    {
+        Loose looseWindow = new();
+        this.Close();
+        looseWindow.ShowDialog();
     }
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
