@@ -52,10 +52,10 @@ internal class RulesController
         var y = peg.Y;
         var pegsAround = new List<Peg>
         {
-            pegs.FirstOrDefault(p => p.X == x && p.Y == y - 2),
-            pegs.FirstOrDefault(p => p.X == x && p.Y == y + 2),
-            pegs.FirstOrDefault(p => p.X == x - 2 && p.Y == y),
-            pegs.FirstOrDefault(p => p.X == x + 2 && p.Y == y)
+            pegs.FirstOrDefault(p => p.X == x && p.Y == y - 1),
+            pegs.FirstOrDefault(p => p.X == x && p.Y == y + 1),
+            pegs.FirstOrDefault(p => p.X == x - 1 && p.Y == y),
+            pegs.FirstOrDefault(p => p.X == x + 1 && p.Y == y)
         };
         foreach (var pegAround in pegsAround)
         {
@@ -87,6 +87,6 @@ internal class RulesController
     }
 
     public bool CheckLoseCondition(List<Peg> pegs) {
-        return IsAnyMovePossible(pegs);
+        return !IsAnyMovePossible(pegs);
     }
 }
