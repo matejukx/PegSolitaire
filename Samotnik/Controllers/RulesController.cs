@@ -13,7 +13,7 @@ internal class RulesController
     public bool CanJump(Peg last, Peg next, List<Peg> pegs)
     {
         var pegBetween = GetPegBetween(last, next, pegs);
-        if (!pegBetween.IsVisible)
+        if (pegBetween is not null && !pegBetween.IsVisible)
         {
             return false;
         }
@@ -52,10 +52,10 @@ internal class RulesController
         var y = peg.Y;
         var pegsAround = new List<Peg>
         {
-            pegs.FirstOrDefault(p => p.X == x && p.Y == y - 1),
-            pegs.FirstOrDefault(p => p.X == x && p.Y == y + 1),
-            pegs.FirstOrDefault(p => p.X == x - 1 && p.Y == y),
-            pegs.FirstOrDefault(p => p.X == x + 1 && p.Y == y)
+            pegs.FirstOrDefault(p => p.X == x && p.Y == y - 2),
+            pegs.FirstOrDefault(p => p.X == x && p.Y == y + 2),
+            pegs.FirstOrDefault(p => p.X == x - 2 && p.Y == y),
+            pegs.FirstOrDefault(p => p.X == x + 2 && p.Y == y)
         };
         foreach (var pegAround in pegsAround)
         {
