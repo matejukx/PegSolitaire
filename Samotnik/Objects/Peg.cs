@@ -15,7 +15,7 @@ public class Peg
         get => _isVisible;
         set
         {
-            _button.Content = value ? "\u25A0" : "";
+            _button.Content = value ? "\u2B24" : "";
             _isVisible = value;
         }
     }
