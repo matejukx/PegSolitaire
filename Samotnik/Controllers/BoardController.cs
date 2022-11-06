@@ -119,7 +119,7 @@ internal class BoardController
             _mainWindow.WinGame();
         }
         if (_rulesController.CheckLoseCondition(Pegs)) {
-           // _mainWindow.LooseGame();
+           _mainWindow.LooseGame();
         }
     }
 

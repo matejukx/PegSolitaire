@@ -59,7 +59,7 @@ internal class RulesController
         };
         foreach (var pegAround in pegsAround)
         {
-            if (pegAround != null && pegAround.IsVisible)
+            if (pegAround != null && !pegAround.IsVisible)
             {
                 var pegBetween = GetPegBetween(peg, pegAround, pegs);
                 if (pegBetween != null && pegBetween.IsVisible)
